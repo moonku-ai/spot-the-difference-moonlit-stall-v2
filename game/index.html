@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telltale — a spot-the-difference mystery</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1 class="logo">Telltale</h1>
+  <p class="tagline">Three scenes. Twenty-four small lies. Find them all.</p>
+</header>
+
+<main>
+  <!-- ============ MENU ============ -->
+  <section id="screen-menu">
+    <p class="intro">Two pictures look the same. They aren't. Tap a difference on
+      <em>either</em> picture to circle it — on both. A wrong tap costs five
+      seconds, so look twice and tap once.</p>
+    <div id="level-cards" class="level-cards"></div>
+    <div class="howto">
+      <h2>How to play</h2>
+      <ul>
+        <li><strong>Click a difference</strong> on either picture — 100 points, more on a streak.</li>
+        <li><strong>Wrong click:</strong> −5 seconds and your streak resets.</li>
+        <li><strong>Hint</strong> (3 per level): a gold ring points at one difference, −50 points.</li>
+        <li><strong>Finish fast:</strong> time left becomes bonus points and stars.</li>
+        <li>Keys: <kbd>H</kbd> hint · <kbd>R</kbd> restart · <kbd>Esc</kbd> pause · <kbd>M</kbd> sound</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ PLAY ============ -->
+  <section id="screen-play" class="hidden">
+    <div class="hud">
+      <span id="hud-level-name" class="hud-level"></span>
+      <span id="hud-found" class="hud-found"></span>
+      <span id="found-dots" class="dots"></span>
+      <span id="hud-score" class="hud-score"></span>
+      <span id="hud-streak" class="hud-streak"></span>
+      <span class="hud-time"><span id="hud-time"></span>
+        <span id="timer-bar" class="timer-bar"><span id="timer-fill" class="timer-fill"></span></span>
+      </span>
+    </div>
+
+    <div id="panels" class="panels">
+      <figure class="panel">
+        <canvas id="canvas-left" width="620" height="420"></canvas>
+        <figcaption>Picture A</figcaption>
+      </figure>
+      <figure class="panel">
+        <canvas id="canvas-right" width="620" height="420"></canvas>
+        <figcaption>Picture B</figcaption>
+      </figure>
+    </div>
+
+    <div class="controls">
+      <button id="btn-hint" type="button" class="btn primary">Hint (<span id="hint-count">3</span> left)</button>
+      <button id="btn-restart" type="button" class="btn">Restart</button>
+      <button id="btn-pause" type="button" class="btn">Pause</button>
+      <button id="btn-mute" type="button" class="btn">Sound: on</button>
+    </div>
+    <div id="toast" class="toast" role="status"></div>
+  </section>
+</main>
+
+<!-- ============ OVERLAYS ============ -->
+<div id="overlay-complete" class="overlay hidden">
+  <div class="card">
+    <div id="complete-stars" class="stars">★★★</div>
+    <h2 id="complete-title">Cleared!</h2>
+    <p id="complete-breakdown"></p>
+    <div class="card-buttons">
+      <button id="btn-next" type="button" class="btn primary">Next level</button>
+      <button id="btn-replay" type="button" class="btn">Replay</button>
+      <button id="btn-complete-menu" type="button" class="btn">Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay-gameover" class="overlay hidden">
+  <div class="card">
+    <h2>Time's up!</h2>
+    <p id="gameover-found"></p>
+    <p>The differences are still hiding. Look closer next time.</p>
+    <div class="card-buttons">
+      <button id="btn-retry" type="button" class="btn primary">Try again</button>
+      <button id="btn-gameover-menu" type="button" class="btn">Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay-pause" class="overlay hidden">
+  <div class="card">
+    <h2>Paused</h2>
+    <p>The clock is stopped. Take a breath.</p>
+    <div class="card-buttons">
+      <button id="btn-resume" type="button" class="btn primary">Resume</button>
+      <button id="btn-pause-restart" type="button" class="btn">Restart</button>
+      <button id="btn-pause-menu" type="button" class="btn">Menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay-final" class="overlay hidden">
+  <div class="card">
+    <div id="final-stars" class="stars">★★★★★★★★★</div>
+    <h2>You found them all!</h2>
+    <p>Every difference in all three scenes — the bookshop, the harbor, and the night garden.</p>
+    <p id="final-score"></p>
+    <div class="card-buttons">
+      <button id="btn-final-again" type="button" class="btn primary">Play again</button>
+      <button id="btn-final-menu" type="button" class="btn">Menu</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
